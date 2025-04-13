@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home Page</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous" />
+  <style>
+    body {
+      background: linear-gradient(135deg, #01101f, #0b2d4e, #8ebafc);
+      margin: 0;
+      /* background: linear-gradient(135deg, #01101f, #0b2d4e, #8ebafc); */
+    }
+
+    /* Enhanced navigation bar styling */
+    /* nav.navbar {
+      background-color: #050f2f;
+    } */
+
+    .navbar {
+      background-color: #0d1b3d;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+  }
+  .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+  }
+  .nav-left img {
+      width: 40px;
+      height: 40px;
+  }
+  .navbar a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      display: block;
+  }
+  .navbar a:hover {
+      background-color: #1a2b5a;
+  }
+  .nav-right {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-left: 0px;
+  }
+  .search-container {
+    position: relative;
+    display: inline-block;
+  }
+  .navbar input[type="text"] {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    width: 200px;
+  }
+  .navbar button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #1a2b5a;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .search-results-dropdown {
+    position: fixed;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 600px;
+    max-height: 400px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    display: none;
+  }
+  .search-result-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+  }
+  .search-result-item:hover {
+    background-color: #f5f5f5;
+  }
+  .navbar button:hover {
+      background-color: #2a3e7b;
+  }
+
+    /* Footer styling */
+    footer {
+      /* background-color: #041427; */
+      color: #ffffff;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    footer a {
+      color: #f9f871;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Loader styling */
+    #loader {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #3498db;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      z-index: 1000;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    #content {
+      display: none;
+    }
+
+    /* Search results styling */
+    .search-results {
+      background: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin: 20px auto;
+      width: 90%;
+      max-width: 800px;
+    }
+
+    .search-results h3 {
+      color: #0d1b3d;
+      margin-bottom: 20px;
+    }
+
+    .search-results .card {
+      border: none;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    }
+
+    .search-results .card-title {
+      color: #0d1b3d;
+    }
+
+    .search-results .card-text {
+      color: #555;
+    }
+
+    .search-results .btn-primary {
+      background-color: #0d1b3d;
+      border-color: #0d1b3d;
+    }
+
+    .search-results .btn-primary:hover {
+      background-color: #1a2b5a;
+      border-color: #1a2b5a;
+    }
+
+    /* Star rating styling */
+    .search-results .card-text strong {
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Loader -->
+  <div id="loader"></div>
+
+  <div id="content">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="navbar">
+        <div class="nav-left">
+            <img src="images/logo.png" alt="Company Logo">
+            <a href="home.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="work.html">Work In</a>
+            <a href="contactUs.html">contact us</a>
+            
+        </div>
+        <div class="nav-right">
+            <a href="profile.html">Profile </a>
+            <div class="search-container">
+                <input type="text" id="searchTerm" placeholder="Search..." oninput="showSearchResults()">
+                <select id="locationFilter">
+                  <option value="">All Rajasthan</option>
+                  <option value="Jaipur">Jaipur</option>
+                  <option value="Jodhpur">Jodhpur</option>
+                  <option value="Udaipur">Udaipur</option>
+                  <option value="Kota">Kota</option>
+                  <option value="Bikaner">Bikaner</option>
+                  <option value="Ajmer">Ajmer</option>
+                  <option value="Bhilwara">Bhilwara</option>
+                  <option value="Alwar">Alwar</option>
+                  <option value="Bharatpur">Bharatpur</option>
+                  <option value="Sikar">Sikar</option>
+                  <option value="Pali">Pali</option>
+                  <option value="Nagaur">Nagaur</option>
+                </select>
+                <button onclick="performSearch()">Search</button>
+                <div id="searchResultsDropdown" class="search-results-dropdown"></div>
+            </div>
+        </div>
+    </div>
+        <div class="form-inline my-2 my-lg-0" id="auth-section">
+          <!-- This section will be dynamically populated -->
+        </div>
+      </div>
+    </nav>
+
+    <div class="container py-3">
+      <div class="jumbotron">
+        <h1 class="display-4">Welcome to LabourLink</h1>
+        <p class="lead">
+          Connecting contractors with skilled workers seamlessly.
+        </p>
+        <hr class="my-4" />
+        <p>
+          LabourLink helps contractors find reliable, experienced workers and assists workers in finding job
+          opportunities
+          that match their skills.
+        </p>
+        <a class="btn btn-primary btn-lg" href="registrationPage.html" role="button">Get Started</a>
+      </div>
+
+      
+
+    
+
+    <!-- Card elements showcasing features -->
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <img src="images/contractorImg.jpg" class="card-img-top" alt="..." loading="lazy">
+          <div class="card-body">
+            <h5 class="card-title">For Contractors</h5>
+            <p class="card-text">
+              Easily post job requirements and find the perfect workers for your projects. Save time and resources by
+              accessing a pool of skilled professionals.
+            </p>
+            <a href="contractor.html" class="btn btn-primary">Learn More</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <img src="images/labourer1.jpg" class="card-img-top" alt="..." loading="lazy">
+          <div class="card-body">
+            <h5 class="card-title">For Workers</h5>
+            <p class="card-text">
+              Browse job postings and apply for opportunities that match your skills and experience. Connect with top
+              contractors in your field.
+            </p>
+            <a href="labourer.html" class="btn btn-primary">Find Jobs</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <img src="images/aboutUs1.jpg" class="card-img-top" alt="..." loading="lazy">
+          <div class="card-body">
+            <h5 class="card-title">Secure Platform</h5>
+            <p class="card-text">
+              Our platform ensures secure and transparent communication between contractors and workers, providing
+              peace
+              of mind to all users.
+            </p>
+            <a href="#" class="btn btn-primary">Explore Security Features</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 LabourLink. All rights reserved.</p>
+    <p>
+      <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a> | <a
+        href="contactUs.html">Contact Us</a>
+    </p>
+  </footer>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+    crossorigin="anonymous"></script>
+
+    <script src="laborProfiles.js"></script>
+    <script>
+    function showSearchResults() {
+      const searchTerm = document.getElementById('searchTerm').value;
+      const location = document.getElementById('locationFilter').value;
+      const dropdown = document.getElementById('searchResultsDropdown');
+      
+      if (!searchTerm.trim() && !location) {
+        dropdown.style.display = 'none';
+        return;
+      }
+      
+      const results = searchProfiles(searchTerm, location);
+      dropdown.innerHTML = '';
+      
+      if (results.length > 0) {
+        results.slice(0, 5).forEach(profile => {
+          const item = document.createElement('div');
+          item.className = 'search-result-item';
+          item.innerHTML = `
+            <strong>${profile.name}</strong><br>
+            ${profile.skills.join(', ')} | ${profile.location}<br>
+            ${profile.rate} | ${'★'.repeat(Math.floor(profile.rating))}
+          `;
+          item.onclick = () => showFullProfile(profile.id);
+          dropdown.appendChild(item);
+        });
+        dropdown.style.display = 'block';
+      } else {
+        dropdown.style.display = 'none';
+      }
+    }
+
+    function performSearch() {
+      const searchTerm = document.getElementById('searchTerm').value;
+      const location = document.getElementById('locationFilter').value;
+      
+      const results = searchProfiles(searchTerm, location);
+      document.getElementById('searchResultsDropdown').style.display = 'none';
+      
+      if (results.length > 0) {
+        let resultHTML = '<div class="search-results"><h3>Search Results:</h3>';
+        results.forEach(profile => {
+          resultHTML += `
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title">${profile.name}</h5>
+                <p class="card-text">
+                  <strong>Skills:</strong> ${profile.skills.join(', ')}<br>
+                  <strong>Experience:</strong> ${profile.experience}<br>
+                  <strong>Location:</strong> ${profile.location}<br>
+                  <strong>Rate:</strong> ${profile.rate}<br>
+                  <strong>Rating:</strong> ${'★'.repeat(Math.floor(profile.rating))}${'☆'.repeat(5-Math.floor(profile.rating))}
+                </p>
+                <button class="btn btn-primary" onclick="contactLabor(${profile.id})">Contact</button>
+              </div>
+            </div>
+          `;
+        });
+        resultHTML += '</div>';
+        
+        // Display results below search bar
+        const resultsContainer = document.createElement('div');
+        resultsContainer.id = 'searchResultsContainer';
+        resultsContainer.innerHTML = resultHTML;
+        
+        // Remove previous results if any
+        const oldResults = document.getElementById('searchResultsContainer');
+        if (oldResults) oldResults.remove();
+        
+        const mainContent = document.querySelector('main') || document.querySelector('.container');
+        if (mainContent) {
+          mainContent.prepend(resultsContainer);
+        } else {
+          document.body.prepend(resultsContainer);
+        }
+      } else {
+        alert('No matching profiles found');
+      }
+    }
+
+    function showFullProfile(id) {
+      const profile = laborProfiles.find(p => p.id === id);
+      alert(`Showing full profile for ${profile.name}`);
+      // In a real app, you would navigate to a profile page or show a modal
+    }
+    
+    function contactLabor(id) {
+      const profile = laborProfiles.find(p => p.id === id);
+      alert(`Contacting ${profile.name} at ${profile.contact}`);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const authSection = document.getElementById("auth-section");
+      const sanitizedEmail = localStorage.getItem("sanitizedEmail");
+
+      if (sanitizedEmail) {
+        authSection.innerHTML = `
+          <span class="navbar-text">
+            😊 Welcome, <strong>${sanitizedEmail}</strong>
+          </span>
+          <a type="button" class="btn btn-outline-danger ml-3" onclick="logoutUser()">Logout</a>
+        `;
+      } else {
+        authSection.innerHTML = `
+          <a type="button" class="btn btn-outline-success mx-3" href="login.html">Sign In</a>
+        `;
+      }
+    });
+
+    function logoutUser() {
+      localStorage.clear(); // Clears all data from localStorage
+      location.reload(); // Reloads the page
+    }
+
+    // Hide loader and show content once the page fully loads
+    window.addEventListener('load', function () {
+      document.getElementById('loader').style.display = 'none';
+      document.getElementById('content').style.display = 'block';
+    });
+  </script>
+</body>
+
+</html>

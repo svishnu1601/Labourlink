@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <script type="module" src="login.js" defer></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Background styling */
+        body {
+            font-family: Arial, sans-serif;
+            /* background: linear-gradient(135deg, #01101f, #0b2d4e, #8ebafc); */
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Login container styling */
+        .login-container {
+            width: 100%;
+            max-width: 320px;
+            padding: 25px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        /* Heading styling */
+        h2 {
+            color: #333;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        /* Form and input styling */
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        label {
+            font-size: 0.9em;
+            color: #555;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.95em;
+            transition: all 0.2s ease;
+        }
+
+        /* Input focus effect */
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #8ab4f8;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+        }
+
+        /* Button styling */
+        button {
+            padding: 10px;
+            background-color: hsl(211, 100%, 50%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Error message styling */
+        .error {
+            color: red;
+            font-size: 0.85em;
+        }
+
+        /* Link styling */
+        .link {
+            font-size: 0.9em;
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Login</h2>
+    <form id="login-form" class="login-form" onsubmit="return validateLogin()">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+
+        <!-- Forgot password link -->
+        <p><a href="#" id="forgot-password-link" class="link">Forgot Password?</a></p>
+
+
+        <div class="error" id="error-message"></div>
+
+        <p>Create an account? <a class="toggle-link" href="registrationPage.html">Sign Up</a></p>
+
+        <button type="submit" id="loginButton">Login</button>
+    </form>
+</div>
+
+<script>
+    function validateLogin() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const errorMessage = document.getElementById("error-message");
+
+        // Dummy credentials (for demonstration only)
+        const validEmail = "user@example.com";
+        const validPassword = "password123";
+
+        if (email === validEmail && password === validPassword) {
+            alert("Login successful!");
+            return true;
+        } else {
+            errorMessage.textContent = "Invalid Email or Password!";
+            return false;
+        }
+    }
+</script>
+
+</body>
+</html>

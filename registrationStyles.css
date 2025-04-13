@@ -1,0 +1,145 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Background styling */
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #f0f2f5, #e3e6e9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 10px;
+    overflow: hidden;
+  }
+
+  /* Form container styling */
+  .form-container {
+    width: 100%;
+    max-width: 320px;
+    max-height: 90vh;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    overflow-y: auto;
+  }
+
+  /* Form title */
+  h2 {
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 1.4em;
+  }
+
+  /* Form and label styling */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: stretch;
+  }
+
+  label {
+    text-align: left;
+    color: #555;
+    font-weight: bold;
+    font-size: 0.85em;
+  }
+
+  /* Input fields */
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"],
+  select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 3px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+  }
+
+  /* Focus effect on inputs */
+  input:focus,
+  select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
+  }
+
+  /* Phone container layout */
+  .phone-container {
+    display: flex;
+    gap: 5px;
+  }
+
+  .country-code {
+    width: 30%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    background-color: #f8f9fa;
+  }
+
+  .phone-container input[type="tel"] {
+    width: 70%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 0 5px 5px 0;
+  }
+
+  /* Toggle section label */
+  .switch-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 500;
+    color: #555;
+    font-size: 0.85em;
+  }
+
+  /* Submit button styling */
+  button {
+    padding: 10px;
+    background-color: hsl(211, 100%, 50%);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  button:active {
+    transform: scale(0.98);
+  }
+
+  /* Conditional section (hidden by default) */
+  .conditional-section {
+    display: none;
+    text-align: left;
+  }
+
+  /* Responsive styling */
+  @media (max-width: 480px) {
+    .form-container {
+      padding: 10px;
+      max-width: 300px;
+    }
+
+    h2 {
+      font-size: 1.3em;
+    }
+  }

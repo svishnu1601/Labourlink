@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toggle Button</title>
+
+    <script type="module" src="labourerAvailable.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous" />
+
+    <style>
+
+body {
+      /* background: linear-gradient(135deg, #01101f, #0b2d4e, #8ebafc); */
+      overflow: hidden;
+    }
+
+
+      /* Enhanced navigation bar styling */
+      .navbar {
+      background-color: #0d1b3d;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+  }
+  .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+  }
+  .nav-left img {
+      width: 40px;
+      height: 40px;
+  }
+  .navbar a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      display: block;
+  }
+  .navbar a:hover {
+      background-color: #1a2b5a;
+  }
+  .nav-right {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-left: 0px;
+  }
+  .navbar input[type="text"] {
+      padding: 5px;
+      border: none;
+      border-radius: 5px;
+  }
+  .navbar button {
+      padding: 5px 10px;
+      border: none;
+      background-color: #1a2b5a;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+  }
+  .navbar button:hover {
+      background-color: #2a3e7b;
+  }
+        .switch-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Custom Switch Toggle */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            margin-top: 20px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #dc3545;
+            transition: 0.4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: #28a745;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Status Text Styling */
+        #statusText {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #000000;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- nav bar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="navbar">
+      <div class="nav-left">
+          <img src="images/logo.png" alt="Company Logo">
+          <a href="home.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="work.html">Work In</a>
+          <a href="contactUs.html">contact us</a>
+          
+      </div>
+      <div class="nav-right">
+          
+          <a href="profile.html">Profile </a>
+          <input type="text" placeholder="Search...">
+          <button>Search</button>
+      </div>
+  </div>
+      <div class="form-inline my-2 my-lg-0" id="auth-section">
+        <!-- This section will be dynamically populated -->
+      </div>
+    </div>
+  </nav>
+
+
+    <div class="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
+        <div class="switch-container">
+            <label class="switch">
+                <input type="checkbox" id="toggleButton">
+                <span class="slider"></span>
+            </label>
+            <span id="statusText">Unavailable for Work</span>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+
+    <script>
+        $(function () {
+            $("#toggleButton").click(function () {
+                const isAvailable = $(this).prop("checked");
+
+                // Toggle text based on state
+                if (isAvailable) {
+                    $("#statusText").text("Open for Work");
+                    console.log(true);
+
+                    // Update location when toggled to "Available"
+                    navigator.geolocation.getCurrentPosition(
+                        function (position) {
+                            console.log("Location updated:", position);
+                            localStorage.setItem("latitude", position.coords.latitude);
+                            localStorage.setItem("longitude", position.coords.longitude);
+                        },
+                        function () {
+                            console.log("Error retrieving location.");
+                        }
+                    );
+                } else {
+                    $("#statusText").text("Unavailable for Work");
+                    console.log(false);
+                }
+            });
+        });
+    </script>
+
+
+    <script type="module">
+        import { saveWorkerData } from "./labourerAvailable.js";
+
+        $(function () {
+            $("#toggleButton").click(function () {
+                const isAvailable = $(this).prop("checked");
+
+                // Toggle text based on state
+                if (isAvailable) {
+                    $("#statusText").text("Open for Work");
+
+                    // Get location when available and save to Firebase
+                    navigator.geolocation.getCurrentPosition(
+                        function (position) {
+                            const latitude = position.coords.latitude;
+                            const longitude = position.coords.longitude;
+                            localStorage.setItem("latitude", latitude);
+                            localStorage.setItem("longitude", longitude);
+
+                            // Call Firebase function to save data
+                            saveWorkerData(true, latitude, longitude);
+                            console.log("Location updated and saved to Firebase:", latitude, longitude);
+                        },
+                        function () {
+                            console.log("Error retrieving location.");
+                        }
+                    );
+                } else {
+                    $("#statusText").text("Unavailable for Work");
+
+                    // Call Firebase function to save 'unavailable' state without location
+                    saveWorkerData(false, null, null);
+                    console.log("Worker marked as unavailable.");
+                }
+            });
+        });
+    </script>
+
+
+
+
+<script src="components/checkLoggedIn.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+

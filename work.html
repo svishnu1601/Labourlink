@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labour Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #01101f, #0b2d4e, #8ebafc);
+            color: white;
+        }
+        .navbar {
+            background-color: #0d1b3d;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .nav-left img {
+            width: 40px;
+            height: 40px;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+        }
+        .navbar a:hover {
+            background-color: #1a2b5a;
+        }
+        .nav-right {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+        }
+        .navbar input[type="text"] {
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+        .navbar button {
+            padding: 5px 10px;
+            border: none;
+            background-color: #1a2b5a;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .navbar button:hover {
+            background-color: #2a3e7b;
+        }
+        .profile-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .labour-list {
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+        .labour-card {
+            background-color: #1a2b5a;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .labour-card a {
+            padding: 8px 12px;
+            background-color: #2a3e7b;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .labour-card a:hover {
+            background-color: #3b509b;
+        }
+
+        /* Loader styling */
+    #loader {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border: 8px solid #f3f3f3;
+        border-top: 8px solid #3498db;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        animation: spin 1s linear infinite;
+        z-index: 1000;
+      }
+
+
+
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+            }
+            .nav-left, .nav-right {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .navbar input[type="text"] {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="nav-left">
+            <img src="images/logo.png" alt="Company Logo">
+            <a href="home.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="work.html">Work In</a>
+            <a href="contactUs.html">Contact Us</a>
+            <a href="profile.html">Profile</a>
+        </div>
+        <div class="nav-right">
+            <input type="text" placeholder="Search...">
+            <button>Search</button>
+            
+            
+        </div>
+    </div>
+
+    <div class="labour-list">
+        <h2>Labours Working Under Contractor</h2>
+        <div class="labour-card">
+            <span>Sunil Yadav - Carpenter</span>
+            <a href="profile2.html">View Profile</a>
+        </div>
+        <div class="labour-card">
+            <span>Amit Sharma - Electrician</span>
+            <a href="profile2.html">View Profile</a>
+        </div>
+        <div class="labour-card">
+            <span>Rahul Verma - Plumber</span>
+            <a href="profile2.html">View Profile</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const authSection = document.getElementById("auth-section");
+          const sanitizedEmail = localStorage.getItem("sanitizedEmail");
+    
+          if (sanitizedEmail) {
+            authSection.innerHTML = `
+              <span class="navbar-text">
+                😊 Welcome, <strong>${sanitizedEmail}</strong>
+              </span>
+              <a type="button" class="btn btn-outline-danger ml-3" onclick="logoutUser()">Logout</a>
+            `;
+          } else {
+            authSection.innerHTML = `
+              <a type="button" class="btn btn-outline-success mx-3" href="login.html">Sign In</a>
+            `;
+          }
+        });
+    
+        function logoutUser() {
+          localStorage.clear(); // Clears all data from localStorage
+          location.reload(); // Reloads the page
+        }
+    
+        // Hide loader and show content once the page fully loads
+        window.addEventListener('load', function () {
+          document.getElementById('loader').style.display = 'none';
+          document.getElementById('content').style.display = 'block';
+        });
+      </script>
+</body>
+</html>

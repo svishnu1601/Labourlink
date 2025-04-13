@@ -1,0 +1,90 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Background styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e0eafc;
+    /* background-image: linear-gradient(315deg, #e0eafc 0%, #cfdef3 74%); */
+    background: linear-gradient(135deg, #8ebafc,#001d39, #01101f);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Login container styling */
+.login-container {
+    width: 100%;
+    max-width: 320px;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+/* Heading styling */
+h2 {
+    color: #333;
+    font-size: 1.4em;
+    margin-bottom: 15px;
+}
+
+/* Form and input styling */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+label {
+    font-size: 0.9em;
+    color: #555;
+    font-weight: bold;
+    text-align: left;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.95em;
+    transition: all 0.2s ease;
+}
+
+/* Input focus effect */
+input[type="email"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #8ab4f8;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+/* Button styling */
+button {
+    padding: 10px;
+    background-color: hsl(211, 100%, 50%);;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Error message styling */
+.error {
+    color: red;
+    font-size: 0.85em;
+}

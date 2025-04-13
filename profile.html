@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <style>
+        body{
+            background: linear-gradient(135deg, #01101f, #0b2d4e, #072e68);
+            height: 100%;
+            
+        }
+
+        
+              /* Enhanced navigation bar styling */
+              .navbar {
+                background-color: #0d1b3d;
+                padding: 15px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+            .nav-left {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+            .nav-left img {
+                width: 40px;
+                height: 40px;
+            }
+            .navbar a {
+                color: white;
+                text-decoration: none;
+                padding: 10px 15px;
+                display: block;
+            }
+            .navbar a:hover {
+                background-color: #1a2b5a;
+            }
+            .nav-right {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 10px;
+            }
+            .navbar input[type="text"] {
+                padding: 5px;
+                border: none;
+                border-radius: 5px;
+            }
+            .navbar button {
+                padding: 5px 10px;
+                border: none;
+                background-color: #1a2b5a;
+                color: white;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+            .navbar button:hover {
+                background-color: #2a3e7b;
+            }
+
+
+
+        .profile-container {
+            
+            width: 90%;
+            max-width: 800px;
+            margin: auto;
+            background: #112a52;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(255,255,255,0.1);
+            margin-top: 0px;
+            border-radius: 10px;
+        }
+
+        .profile-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-info {
+            list-style: none;
+            padding: 0;
+            color: white;
+            
+        }
+
+        .profile-info li {
+            margin: 10px 0;
+            font-size: 1.1em;
+            color: white;
+        }
+
+        .logout-btn, .signin-btn {
+            display: block;
+            margin: 20px auto 0;
+            width: 100%;
+        }
+
+        .avatar {
+          vertical-align: middle;
+          border-radius: 50%;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          width: 20%;
+          color: #0b2d4e;
+        }
+
+
+
+    
+
+
+
+    </style>
+</head>
+
+<body>
+    <!-- nav bar -->
+    <nav>
+      <div class="navbar">
+        <div class="nav-left">
+            <img src="images/logo.png" alt="Company Logo">
+            <a href="home.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="work.html">Work In</a>
+            <a href="contactUs.html">contact us</a>
+            <a href="profile.html">Profile</a>
+        </div>
+        <div class="nav-right">
+            <input type="text" placeholder="Search...">
+            <button>Search</button>
+        </div>
+    </div>
+        <div class="form-inline my-2 my-lg-0" id="auth-section">
+          <!-- This section will be dynamically populated -->
+        </div>
+      </div>
+    </nav>
+
+      
+    <div class="container my-5">
+        <!-- Profile Container -->
+        <div class="profile-container" id="profileContainer">
+          <img src="avatar.png" alt="Avatar" class="avatar">
+
+            
+
+
+          
+          <script>
+              // Function to preview the selected avatar
+              function previewAvatar() {
+                  const avatarInput = document.getElementById('avatarInput');
+                  const avatarImage = document.getElementById('avatarImage');
+          
+                  const file = avatarInput.files[0];
+                  if (file) {
+                      const reader = new FileReader();
+                      reader.onload = function (e) {
+                          avatarImage.src = e.target.result;
+                          avatarImage.style.display = 'block';
+                      };
+                      reader.readAsDataURL(file);
+                  }
+              }
+          </script>
+          
+
+            <ul class="profile-info">
+                <li style="text-align: center; font-size: 25px"><strong> <span id="role"></span> profile </strong></li>
+                <strong style="font-size: 1.3rem; color:white;">Personal Information <hr> </strong>
+                <li><strong>Full Name:</strong> <span id="fullName"></span></li>
+                <li><strong>Age:</strong> <span id="age"></span></li>
+                <li><strong>Phone:</strong> <span id="phone"></span></li>
+                
+                <li><strong>Email:</strong> <span id="email"></span></li> <br>
+                <strong style="font-size: 1.3rem; color:white;">Company Information <hr> </strong>
+                <li><strong>Company Name:</strong> <span id="companyname"></span></li>
+                <li><strong>Location:</strong> <span id="location"></span></li>
+                <li><strong>Services:</strong> <span id="services"></span></li>
+                
+
+            </ul>
+            <button id="logoutButton" class="btn btn-danger logout-btn">Logout</button>
+        </div>
+        
+        <!-- Sign In Container -->
+        <div class="profile-container" id="signinContainer" style="display: none;">
+            <h2>You are not logged in</h2>
+            <p>Please sign in to view your profile information.</p>
+            <button id="signinButton" class="btn btn-primary signin-btn">Sign In</button>
+        </div>
+    </div>
+
+    <script type="module">
+        // Firebase Imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA63JPR_aDdfXFRDcaShgSmczwvdDIL5zw",
+            authDomain: "webproject-65316.firebaseapp.com",
+            databaseURL: "https://webproject-65316-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "webproject-65316",
+            storageBucket: "webproject-65316.firebasestorage.app",
+            messagingSenderId: "854978174033",
+            appId: "1:854978174033:web:6ce725bb2c6f7fd651ac70"
+        };
+
+        // Initialize Firebase app
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Retrieve userID from localStorage
+        const userId = localStorage.getItem("sanitizedEmail");
+
+        // Retrieve profile data from localStorage or Firebase
+        window.onload = function () {
+            if (userId) {
+                // Show the profile container and hide the sign-in container
+                document.getElementById("profileContainer").style.display = "block";
+                document.getElementById("signinContainer").style.display = "none";
+
+                // Display data from localStorage if available
+                document.getElementById("fullName").textContent = localStorage.getItem("fullName") || "";
+                document.getElementById("age").textContent = localStorage.getItem("age") || "";
+                document.getElementById("phone").textContent = localStorage.getItem("phone") || "";
+                document.getElementById("location").textContent = localStorage.getItem("location") || "";
+                document.getElementById("email").textContent = localStorage.getItem("email") || "";
+                document.getElementById("companyname").textContent = localStorage.getItem("companyname") || "";
+                document.getElementById("services").textContent = localStorage.getItem("services") || "";
+                document.getElementById("role").textContent = localStorage.getItem("role") || "";
+       
+
+                // Fetch data from Firebase if any key information is missing
+                if (!localStorage.getItem("fullName") || !localStorage.getItem("phone")) {
+                    fetchDataFromFirebase(userId);
+                }
+            } else {
+                // Show the sign-in container and hide the profile container
+                document.getElementById("profileContainer").style.display = "none";
+                document.getElementById("signinContainer").style.display = "block";
+            }
+        };
+
+        // Function to fetch data from Firebase
+        function fetchDataFromFirebase(userId) {
+            const userRef = ref(db, `users/${userId}`);
+            get(userRef).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const user = snapshot.val();
+                    // Populate data on the page
+                    document.getElementById("fullName").textContent = user.FullName;
+                    document.getElementById("age").textContent = user.Age;
+                    document.getElementById("phone").textContent = user.Phone;
+                    document.getElementById("location").textContent = user.Location;
+                    document.getElementById("email").textContent = user.Email;
+                    document.getElementById("companyname").textContent = user.companyname;
+                    document.getElementById("services").textContent = user.services;
+                    document.getElementById("skill").textContent = user.Skill;
+                    document.getElementById("experience").textContent = user.Experience;
+                  
+                    document.getElementById("role").textContent = user.Role;
+                    
+
+                    // Save to localStorage for persistence
+                    localStorage.setItem("fullName", user.FullName);
+                    localStorage.setItem("age", user.Age);
+                    localStorage.setItem("phone", user.Phone);
+                    localStorage.setItem("location", user.Location);
+                    localStorage.setItem("email", user.Email);
+                    localStorage.setItem("companyname", user.companyname);
+                    localStorage.setItem("services", user.services);
+                    localStorage.setItem("skill", user.Skill);
+                    localStorage.setItem("experience", user.Experience);
+                    localStorage.setItem("role", user.Role);
+                  
+                } else {
+                    console.log("No data available for user:", userId);
+                }
+            }).catch((error) => {
+                console.error("Error reading data:", error);
+            });
+        }
+
+        // Logout functionality
+        document.getElementById('logoutButton').addEventListener('click', () => {
+            localStorage.clear();
+            alert("Successfully Logged out");
+            window.location.href = "login.html";
+        });
+
+        // Redirect to login page when clicking on the "Sign In" button
+        document.getElementById('signinButton').addEventListener('click', () => {
+            window.location.href = "login.html";
+        });
+
+
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

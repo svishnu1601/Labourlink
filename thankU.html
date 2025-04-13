@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You!</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous" />
+  <style>
+    /* Fullscreen background and layout */
+    body {
+      background: linear-gradient(135deg, #01101f, #0b2d4e, #8ebafc);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Glowing text styling */
+    h1 {
+      color: #f9f871;
+      font-size: 3em;
+      font-weight: bold;
+      animation: glow 1.5s ease-in-out infinite alternate;
+      margin-bottom: 30px;
+    }
+
+    /* Animation for glowing text */
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #f9f871, 0 0 20px #f9f871, 0 0 30px #f9f871, 0 0 40px #ffae34, 0 0 50px #ffae34,
+          0 0 60px #ffae34, 0 0 70px #ffae34;
+      }
+      to {
+        text-shadow: 0 0 20px #f9f871, 0 0 30px #f9f871, 0 0 40px #ffae34, 0 0 50px #ffae34, 0 0 60px #ffae34,
+          0 0 70px #ffae34, 0 0 80px #ffae34;
+      }
+    }
+
+    /* Smooth fade-in animation */
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 2s forwards 1s;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Button style for immediate redirect */
+    .btn {
+      color: #f9f871;
+      background-color: transparent;
+      border: 2px solid #f9f871;
+      margin-top: 30px;
+      padding: 10px 20px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #f9f871;
+      color: #01101f;
+    }
+
+    /* Responsive container styling */
+    .container {
+      max-width: 700px;
+      padding: 40px 20px;
+      line-height: 1.6;
+    }
+
+    /* Footer animation for floating effect */
+    .floating {
+      position: relative;
+      animation: floating 3s ease-in-out infinite;
+    }
+
+    @keyframes floating {
+      0% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+      100% {
+        transform: translateY(0px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container fade-in">
+    <h1>Thank You! 🎉</h1>
+    <p class="lead floating">
+      We’re incredibly grateful for you! <br />
+      Your message means a lot to us, and we’re thrilled to have you as part of our community.
+    </p>
+    <p>
+      You’re not just a visitor; you’re part of something special. ❤️ Thank you for reaching out and
+      for trusting us. It’s people like you who make what we do worthwhile!
+    </p>
+    <p>
+      Remember, we’re always here for you. Feel free to get in touch anytime.
+    </p>
+    <p>
+      You will be redirected to our homepage in a few moments. <br />
+      If you're not redirected, <a href="index.html" class="text-warning">click here</a> to go back manually.
+    </p>
+    <a href="index.html" class="btn">Return to Home</a>
+  </div>
+
+  <!-- Redirect Script -->
+  <script>
+    setTimeout(function () {
+      window.location.href = "index.html";
+    }, 15000); // Redirects after 5 seconds
+  </script>
+</body>
+
+</html>

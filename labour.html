@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labour Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0a1f44;
+            color: white;
+        }
+        .navbar {
+            background-color: #0d1b3d;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .nav-left img {
+            width: 40px;
+            height: 40px;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+        }
+        .navbar a:hover {
+            background-color: #1a2b5a;
+        }
+        .nav-right {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+        }
+        .navbar input[type="text"] {
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+        .navbar button {
+            padding: 5px 10px;
+            border: none;
+            background-color: #1a2b5a;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .navbar button:hover {
+            background-color: #2a3e7b;
+        }
+        .profile-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: auto;
+            background: #112a52;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(255,255,255,0.1);
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+        .profile-header {
+            text-align: center;
+        }
+        .profile-header img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-top: 20px;
+        }
+        .profile-details {
+            margin-top: 20px;
+        }
+        .profile-details h3 {
+            border-bottom: 2px solid white;
+            padding-bottom: 5px;
+        }
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+            }
+            .nav-left, .nav-right {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .navbar input[type="text"] {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="nav-left">
+            <img src="images/logo.png" alt="Company Logo">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="work.html">Work In</a>
+        </div>
+        <div class="nav-right">
+            <input type="text" placeholder="Search...">
+            <button>Search</button>
+            <a href="labour-profile.html"><img src="profile-icon.png" alt="Profile Icon" class="profile-icon"></a>
+            <button>Log Out</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="profile-header">
+            <img src="photo.jpeg" alt="Labour Profile Picture">
+            <h1>Labour Profile</h1>
+            <p>Experienced Construction Worker</p>
+        </div>
+        <div class="profile-details">
+            <h3>Personal Information</h3>
+            <p><strong>Name:</strong> Raj Kumar</p>
+            <p><strong>Experience:</strong> 10 Years</p>
+            <p><strong>Skills:</strong> Masonry, Painting, Plumbing</p>
+        </div>
+        <div class="profile-details">
+            <h3>Work Information</h3>
+            <p><strong>Current Location:</strong> Mumbai, India</p>
+            <p><strong>Availability:</strong> Full-Time</p>
+            <p><strong>Past Projects:</strong> Apartment Complexes, Commercial Buildings</p>
+        </div>
+        <div class="profile-details">
+            <h3>Contact Information</h3>
+            <p><strong>Phone:</strong> +91 9876543210</p>
+            <p><strong>Email:</strong> raj.kumar@example.com</p>
+        </div>
+    </div>
+</body>
+</html>
